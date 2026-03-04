@@ -18,6 +18,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](https://github.com/jarrensan)]
 
 * Role: Code Quality, Testing
+* Responsibilities: Looks after code quality, ensures adherence to coding standards, etc.
 
 ### Jane Doe
 

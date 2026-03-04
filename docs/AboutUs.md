@@ -11,21 +11,31 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### Khor Kah Seng
+### John Doe
 
-<img src="images/kah-seng.png" width="200px">
+<img src="images/johndoe.png" width="200px">
 
-[[github](https://github.com/kah-seng)]
+[[homepage](http://www.comp.nus.edu.sg/~damithch)]
+[[github](https://github.com/johndoe)]
+[[portfolio](team/johndoe.md)]
 
-* Role: Team Lead
-* Responsibilities: Deliverables and Deadlines, Scheduling and Tracking
+* Role: Project Advisor
 
-### Johnny Doe
+### Jane Doe
 
 <img src="images/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
 [[portfolio](team/johndoe.md)]
+
+* Role: Team Lead
+* Responsibilities: UI
+
+### Johnny Doe
+
+<img src="images/johndoe.png" width="200px">
+
+[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
 
 * Role: Developer
 * Responsibilities: Data

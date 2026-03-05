@@ -404,9 +404,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Invalid command format**: A command format that does not adhere to the format prescribed by the UI
-* **Student Care**: An afterschool program for primary-school aged children
-* **Student Care Supervisor**: A student care supervisor manages the daily operations and staff of the Student Care center
-* **Student**: A child enrolled in the Student Care center
+* **Student care**: An afterschool program for primary-school aged children
+* **Student care supervisor**: A student care supervisor that manages the daily operations and staff of the student care center
+* **Student**: A child enrolled in the student care center
 
 --------------------------------------------------------------------------------------------------------------------
 

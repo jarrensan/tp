@@ -346,7 +346,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  Student Care Supervisor requests to delete a student using the index.
+1.  Student Care Supervisor requests to delete a student's information.
 2.  CareContacts deletes the student.
 3.  CareContacts displays a deletion success message.
 

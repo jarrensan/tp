@@ -39,8 +39,10 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
                              @JsonProperty("email") String email, @JsonProperty("address") String address,
-                             @JsonProperty("tags") List<JsonAdaptedTag> tags, @JsonProperty("name") String parentName,
-                             @JsonProperty("phone") String parentPhone, @JsonProperty("email") String parentEmail) {
+                             @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                             @JsonProperty("parentName") String parentName,
+                             @JsonProperty("parentPhone") String parentPhone,
+                             @JsonProperty("parentEmail") String parentEmail) {
         this.name = name;
         this.phone = phone;
         this.email = email;

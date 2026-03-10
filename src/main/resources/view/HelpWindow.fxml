@@ -30,17 +30,19 @@
                 <padding>
                   <Insets top="10" right="15" bottom="10" left="15"/>
                 </padding>
-                <Label text="Student Care Address Book" styleClass="help-title"/>
+                <Label text="Getting Started" styleClass="help-title"/>
 
                 <Separator/>
 
                 <Label text="Add Student" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
-                <Label text="add n/[student-name] [optional fields]" styleClass="help-command"/>
+                <Label text="add n/STUDENT-NAME pn/PARENT-NAME pc/PARENT-PHONE pe/PARENT-EMAIL a/ADDRESS" styleClass="help-command" wrapText="True"/>
                 <Label text="Examples:" styleClass="help-subtitle"/>
-                <Label text="add n/James"/>
-                <Label text="add n/James Lim a/5"/>
-                <Label text="add n/James pc/91234567 pe/paul@gmail.com"/>
+                <VBox styleClass="example-box">
+                  <Label text="add n/James"/>
+                  <Label text="add n/James Lim a/5"/>
+                  <Label text="add n/James pc/91234567 pe/paul@gmail.com"/>
+                </VBox>
 
                 <Separator/>
 
@@ -48,8 +50,10 @@
                 <Label text="Command:" styleClass="help-subtitle"/>
                 <Label text="delete [INDEX]" styleClass="help-command"/>
                 <Label text="Examples:" styleClass="help-subtitle"/>
-                <Label text="delete 1"/>
-                <Label text="delete 3"/>
+                <VBox styleClass="example-box">
+                  <Label text="delete 1"/>
+                  <Label text="delete 3"/>
+                </VBox>
 
                 <Separator/>
 

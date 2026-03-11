@@ -159,9 +159,9 @@ class JsonAdaptedPerson {
         final Email modelParentEmail = new Email(parentEmail);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress,
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags,
                 modelParentName, modelParentPhone,
-                modelParentEmail, modelTags, modelRemark, modelDietaryRemark);
+                modelParentEmail, modelRemark, modelDietaryRemark);
     }
 
 }

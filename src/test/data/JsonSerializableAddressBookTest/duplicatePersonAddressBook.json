@@ -4,12 +4,12 @@
     "phone": "94351253",
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
+    "tags": [ "friends" ],
     "parentName": "Parent Bee 1",
     "parentPhone": "98765432",
     "parentEmail": "parent@gmail.com",
     "remark" : "",
-    "dietaryRemark" : "",
-    "tags": [ "friends" ]
+    "dietaryRemark" : ""
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",

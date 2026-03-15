@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Age;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -19,6 +20,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class PersonBuilder {
 
     public static final String DEFAULT_NAME = "Amy Bee";
+    public static final String DEFAULT_AGE = "10";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
@@ -29,6 +31,7 @@ public class PersonBuilder {
     public static final String DEFAULT_DIETARYREMARK = "Fish";
 
     private Name name;
+    private Age age;
     private Phone phone;
     private Email email;
     private Address address;
@@ -44,6 +47,7 @@ public class PersonBuilder {
      */
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
+        age = new Age(DEFAULT_AGE);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
@@ -60,6 +64,7 @@ public class PersonBuilder {
      */
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
+        age = personToCopy.getAge();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
@@ -76,6 +81,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Age} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withAge(String age) {
+        this.age = new Age(age);
         return this;
     }
 
@@ -157,7 +170,8 @@ public class PersonBuilder {
      * @return A new instance of {@code Person}.
      */
     public Person build() {
-        return new Person(name, phone, email, address, tags, parentName, parentPhone, parentEmail,
+        return new Person(name, age,
+                phone, email, address, tags, parentName, parentPhone, parentEmail,
                 remark, dietaryRemark);
     }
 

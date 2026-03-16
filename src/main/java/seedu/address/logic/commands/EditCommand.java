@@ -118,7 +118,8 @@ public class EditCommand extends Command {
         Phone updatedParentPhone = editPersonDescriptor.getParentPhone().orElse(personToEdit.getParentPhone());
         Email updatedParentEmail = editPersonDescriptor.getParentEmail().orElse(personToEdit.getParentEmail());
 
-        return new Person(updatedName, updatedAge, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedParentName,
+        return new Person(updatedName, updatedAge, updatedPhone, updatedEmail,
+                updatedAddress, updatedTags, updatedParentName,
                 updatedParentPhone, updatedParentEmail, updatedRemark, updatedDietaryRemark);
     }
 

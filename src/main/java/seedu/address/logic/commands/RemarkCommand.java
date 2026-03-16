@@ -65,9 +65,11 @@ public class RemarkCommand extends Command {
             updatedRemark = this.remark;
         }
 
-        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getAge(), personToEdit.getPhone(), personToEdit.getEmail(),
+        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getAge(),
+                personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), personToEdit.getTags(), personToEdit.getParentName(),
-                personToEdit.getParentPhone(), personToEdit.getParentEmail(), updatedRemark, updatedDietaryRemark);
+                personToEdit.getParentPhone(), personToEdit.getParentEmail(),
+                updatedRemark, updatedDietaryRemark);
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

@@ -68,7 +68,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone parentPhone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PARENT_PHONE).get());
         Email parentEmail = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_PARENT_EMAIL).get());
 
-        Person person = new Person(name, age, phone, email, address, tagList, parentName, parentPhone, parentEmail, remark, dietaryRemark);
+        Person person = new Person(name, age, phone, email, address,
+                tagList, parentName, parentPhone, parentEmail, remark, dietaryRemark);
 
         return new AddCommand(person);
     }

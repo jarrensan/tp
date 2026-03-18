@@ -22,6 +22,8 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
+    public static final String MESSAGE_WARNING = "Warning: A similar name already exists.";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
@@ -63,6 +65,10 @@ public class AddCommand extends Command {
         }
 
         model.addPerson(toAdd);
+        if (model.hasSimilarPerson(toAdd)) {
+            return new CommandResult(MESSAGE_WARNING
+                    + String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }
 

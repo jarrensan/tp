@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -101,6 +102,21 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
+    }
+
+    /**
+     * Returns true if this person and the other person have equal names after normalization.
+     * Normalization is defined by {@link Name#normalizeName()}, which ignores case differences
+     * and collapses extra whitespace.
+     * This method does not consider other attributes such as email or phone number.
+     *
+     * @param otherPerson the person to compare against
+     * @return true if both persons have equal normalized names
+     * @throws NullPointerException if otherPerson is null
+     */
+    public boolean hasSameNormalizedName(Person otherPerson) {
+        requireNonNull(otherPerson);
+        return getName().isSameNormalizedName(otherPerson.getName());
     }
 
     /**

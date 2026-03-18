@@ -88,4 +88,62 @@ public class PersonTest {
                 + ", parentEmail=" + ALICE.getParentEmail() + "}";
         assertEquals(expected, ALICE.toString());
     }
+
+    @Test
+    public void hasSameNormalizedName_sameName_returnsTrue() {
+        Person p1 = new PersonBuilder().withName("John Doe").build();
+        Person p2 = new PersonBuilder().withName("John Doe").build();
+
+        assertTrue(p1.hasSameNormalizedName(p2));
+    }
+
+    @Test
+    public void hasSameNormalizedName_extraWhitespace_returnsTrue() {
+        Person p1 = new PersonBuilder().withName("John   Doe").build();
+        Person p2 = new PersonBuilder().withName("john doe  ").build();
+
+        assertTrue(p1.hasSameNormalizedName(p2));
+    }
+
+    @Test
+    public void hasSameNormalizedName_differentNames_returnsFalse() {
+        Person p1 = new PersonBuilder().withName("John Doe").build();
+        Person p2 = new PersonBuilder().withName("Jane Doe").build();
+
+        assertFalse(p1.hasSameNormalizedName(p2));
+    }
+
+    @Test
+    public void hasSameNormalizedName_null_throwsNullPointerException() {
+        Person p = new PersonBuilder().withName("John Doe").build();
+
+        assertThrows(NullPointerException.class, () -> p.hasSameNormalizedName(null));
+    }
+
+    @Test
+    public void hasSameNormalizedName_isSymmetric() {
+        Person p1 = new PersonBuilder().withName("John   Doe").build();
+        Person p2 = new PersonBuilder().withName("john doe").build();
+
+        assertTrue(p1.hasSameNormalizedName(p2));
+        assertTrue(p2.hasSameNormalizedName(p1));
+    }
+
+    @Test
+    public void hasSameNormalizedName_multipleCalls_consistentResult() {
+        Person p1 = new PersonBuilder().withName("John Doe").build();
+        Person p2 = new PersonBuilder().withName("john doe").build();
+
+        boolean first = p1.hasSameNormalizedName(p2);
+        boolean second = p1.hasSameNormalizedName(p2);
+
+        assertEquals(first, second);
+    }
+
+    @Test
+    public void hasSameNormalizedName_sameObject_returnsTrue() {
+        Person p = new PersonBuilder().withName("John Doe").build();
+
+        assertTrue(p.hasSameNormalizedName(p));
+    }
 }

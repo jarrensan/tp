@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root resizable="true" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/help_icon.png" />
   </icons>
@@ -35,23 +35,22 @@
 
                 <Separator/>
 
-                <Label text="Add Student" styleClass="help-section"/>
+                <Label text="Add a student" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
-                <Label text="add n/STUDENT-NAME pn/PARENT-NAME pc/PARENT-PHONE pe/PARENT-EMAIL a/ADDRESS" styleClass="help-command" wrapText="True"/>
+                <Label text="add n/STUDENT_NAME pn/PARENT_NAME pc/PARENT_PHONE pe/PARENT_EMAIL a/ADDRESS" styleClass="help-command" wrapText="True"/>
                 <Label text="Examples:" styleClass="help-subtitle"/>
 
                 <VBox spacing="2" styleClass="example-box">
                   <padding>
                     <Insets top="10" right="15" bottom="10" left="15"/>
                   </padding>
-                  <Label text="add n/James" styleClass="help-example"/>
-                  <Label text="add n/James Lim a/5" styleClass="help-example"/>
-                  <Label text="add n/James pc/91234567 pe/paul@gmail.com" styleClass="help-example"/>
+                  <Label wrapText="True" text="add n/James Cook a/12 ad/Blk 132 Edgedale Plains, #15-96 pn/Madison Cook pc/87654321 pe/maddie@gmail.com"/>
+                  <Label wrapText="True" text="add n/Mary Chew a/7 ad/Blk 123 Bukit Merah Lane, #12-23 pn/Augusta Chew pc/12345678 pe/augusta@email.com t/allergies"/>
                 </VBox>
 
                 <Separator/>
 
-                <Label text="Delete Student" styleClass="help-section"/>
+                <Label text="Delete a student" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
                 <Label text="delete INDEX" styleClass="help-command"/>
                 <Label text="Examples:" styleClass="help-subtitle"/>
@@ -65,9 +64,66 @@
 
                 <Separator/>
 
-                <Label text="List Students" styleClass="help-section"/>
+                <Label text="Add a remark on a student" styleClass="help-section"/>
+                <Label text="Command:" styleClass="help-subtitle"/>
+                <Label text="remark INDEX r/GENERAL_REMARK d/DIETARY_INFORMATION" styleClass="help-command"/>
+                <Label text="Examples:" styleClass="help-subtitle"/>
+                <VBox spacing="2" styleClass="example-box">
+                  <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                  </padding>
+                  <Label text="remark 1 r/enjoys sports"/>
+                  <Label text="remark 1 d/allergic to shellfish"/>
+                  <Label text="remark 1 r/enjoys sports d/allergic to shellfish"/>
+                </VBox>
+
+                <Separator/>
+
+                <Label text="Delete a remark on a student" styleClass="help-section"/>
+                <Label text="Command:" styleClass="help-subtitle"/>
+                <Label text="delete INDEX r/ d/" styleClass="help-command"/>
+                <Label text="Examples:" styleClass="help-subtitle"/>
+                <VBox spacing="2" styleClass="example-box">
+                  <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                  </padding>
+                  <Label text="remark 1 r/"/>
+                  <Label text="remark 1 d/"/>
+                  <Label text="remark 1 r/ d/"/>
+                </VBox>
+
+                <Separator/>
+
+                <Label text="List all students" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
                 <Label text="list" styleClass="help-command"/>
+
+                <Separator/>
+
+                <Label text="Find by student name" styleClass="help-section"/>
+                <Label text="Command:" styleClass="help-subtitle"/>
+                <Label text="find n/STUDENT_NAME" styleClass="help-command"/>
+                <Label text="Examples:" styleClass="help-subtitle"/>
+                <VBox spacing="2" styleClass="example-box">
+                  <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                  </padding>
+                  <Label text="find n/Jane"/>
+                  <Label text="find n/Jane Doe"/>
+                </VBox>
+
+                <Separator/>
+
+                <Label text="Find by parent name" styleClass="help-section"/>
+                <Label text="Command:" styleClass="help-subtitle"/>
+                <Label text="find n/PARENT_NAME" styleClass="help-command"/>
+                <VBox spacing="2" styleClass="example-box">
+                  <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                  </padding>
+                  <Label text="find n/John"/>
+                  <Label text="find n/Jonathan Tay Jun Le"/>
+                </VBox>
 
                 <Separator/>
 

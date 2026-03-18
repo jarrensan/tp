@@ -26,16 +26,17 @@
       <VBox fx:id="helpMessageContainer">
         <children>
           <VBox spacing="8" styleClass="nav-panel">
-
-            <VBox spacing="2">
+            <HBox>
               <Hyperlink text="Add" onAction="#goToAdd"/>
               <Hyperlink text="Delete" onAction="#goToDelete"/>
               <Hyperlink text="List" onAction="#goToList"/>
+            </HBox>
+            <HBox>
               <Hyperlink text="Add remark" onAction="#goToAddRemark"/>
               <Hyperlink text="Delete remark" onAction="#goToDeleteRemark"/>
               <Hyperlink text="Find by student" onAction="#goToFindStudent"/>
               <Hyperlink text="Find by parent" onAction="#goToFindParent"/>
-            </VBox>
+            </HBox>
           </VBox>
           <ScrollPane fitToWidth="true" fx:id="scrollPane">
             <content>

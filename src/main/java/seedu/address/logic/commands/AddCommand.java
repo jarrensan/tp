@@ -65,8 +65,8 @@ public class AddCommand extends Command {
         }
 
         if (model.hasSimilarPerson(toAdd)) {
-            model.updateFilteredPersonList(person -> person.hasSameNormalizedName(toAdd));
             model.addPerson(toAdd);
+            model.updateFilteredPersonList(person -> person.hasSameNormalizedName(toAdd));
             return new CommandResult(MESSAGE_WARNING
                     + String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
         }

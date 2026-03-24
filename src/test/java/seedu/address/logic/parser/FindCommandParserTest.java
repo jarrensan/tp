@@ -1,12 +1,15 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENT_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,11 +27,11 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
-        // No prefixes - should treat as student name keywords
-        List<String> nameKeywords = Arrays.asList("Alice", "Bob");
-        List<String> emptyParentKeywords = Collections.emptyList();
+        // No prefixes - should treat as student name keywords in the map
+        Map<Prefix, List<String>> nameMap = new HashMap<>();
+        nameMap.put(PREFIX_NAME, Arrays.asList("Alice", "Bob"));
         FindCommand expectedFindCommand =
-                new FindCommand(new NameContainsKeywordsPredicate(nameKeywords, emptyParentKeywords));
+                new FindCommand(new NameContainsKeywordsPredicate(nameMap));
 
         assertParseSuccess(parser, "Alice Bob", expectedFindCommand);
 
@@ -36,9 +39,10 @@ public class FindCommandParserTest {
         assertParseSuccess(parser, " \n Alice \n \t Bob  \t", expectedFindCommand);
 
         // Prefix search - parent name
-        List<String> parentKeywords = Arrays.asList("Tan", "Smith");
+        Map<Prefix, List<String>> parentMap = new HashMap<>();
+        parentMap.put(PREFIX_PARENT_NAME, Arrays.asList("Tan", "Smith"));
         FindCommand expectedParentCommand =
-                new FindCommand(new NameContainsKeywordsPredicate(Collections.emptyList(), parentKeywords));
+                new FindCommand(new NameContainsKeywordsPredicate(parentMap));
 
         assertParseSuccess(parser, " pn/Tan pn/Smith", expectedParentCommand);
     }

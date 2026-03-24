@@ -1,18 +1,31 @@
 package seedu.address.model.person;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.Map;
+import java.util.HashMap;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.logic.parser.Prefix;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AGE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BEHAVIOR_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIETARY_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENT_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENT_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENT_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Person}'s attributes match any of the keywords given for specified prefixes.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Person> {
-    private final List<String> nameKeywords;
-    private final List<String> parentKeywords;
+    private final Map<Prefix, List<String>> keywordsMap;
 
     /**
      * Constructs a {@code NameContainsKeywordsPredicate} that only filters by the person's name.
@@ -21,30 +34,57 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
      * @param keywords A list of strings to match against a person's name.
      */
     public NameContainsKeywordsPredicate(List<String> keywords) {
-        this(keywords, Collections.emptyList());
+        this.keywordsMap = new HashMap<>();
+        if (!keywords.isEmpty()) {
+            this.keywordsMap.put(PREFIX_NAME, keywords);
+        }
     }
 
     /**
-     * Constructs a {@code NameContainsKeywordsPredicate} with specific keywords for both
-     * the person's name and their parents' names.
+     * Constructs a {@code NameContainsKeywordsPredicate} with specific keywords for multi-parameter
+     * searches
      *
-     * @param nameKeywords A list of strings to match against a person's name.
-     * @param parentKeywords A list of strings to match against the names of a person's parents.
+     * @param keywordsMap A map of keywords
      */
-    public NameContainsKeywordsPredicate(List<String> nameKeywords, List<String> parentKeywords) {
-        this.nameKeywords = nameKeywords;
-        this.parentKeywords = parentKeywords;
+    public NameContainsKeywordsPredicate(Map<Prefix, List<String>> keywordsMap) {
+        this.keywordsMap = keywordsMap;
     }
 
     @Override
     public boolean test(Person person) {
-        boolean nameMatch = !nameKeywords.isEmpty() && nameKeywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+        // Returns true if ANY prefix in the map has a keyword that matches the person's corresponding field.
+        return keywordsMap.entrySet().stream().anyMatch(entry -> {
+            Prefix prefix = entry.getKey();
+            List<String> keywords = entry.getValue();
+            String fieldToSearch = getFieldByPrefix(prefix, person);
 
-        boolean parentMatch = !parentKeywords.isEmpty() && parentKeywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getParentName().fullName, keyword));
+            return keywords.stream().anyMatch(keyword ->
+                    StringUtil.containsWordIgnoreCase(fieldToSearch, keyword));
+        });
+    }
 
-        return nameMatch || parentMatch;
+    /**
+     * Helper method to map a Prefix to a specific field in the Person object.
+     */
+    private String getFieldByPrefix(Prefix prefix, Person person) {
+        if (prefix.equals(PREFIX_NAME)) return person.getName().fullName;
+        if (prefix.equals(PREFIX_AGE)) return person.getAge().value;
+        if (prefix.equals(PREFIX_ADDRESS)) return person.getAddress().value;
+        if (prefix.equals(PREFIX_PARENT_NAME)) return person.getParentName().fullName;
+        if (prefix.equals(PREFIX_PARENT_PHONE)) return person.getParentPhone().value;
+        if (prefix.equals(PREFIX_PARENT_EMAIL)) return person.getParentEmail().value;
+        if (prefix.equals(PREFIX_REMARK)) return person.getRemark().value;
+        if (prefix.equals(PREFIX_DIETARY_REMARK)) return person.getDietaryRemark().value;
+        if (prefix.equals(PREFIX_CLASS_REMARK)) return person.getClassRemark().value;
+        if (prefix.equals(PREFIX_BEHAVIOR_REMARK)) return person.getBehaviorRemark().value;
+
+        if (prefix.equals(PREFIX_TAG)) {
+            return person.getTags().stream()
+                    .map(tag -> tag.tagName)
+                    .reduce("", (acc, tag) -> acc + " " + tag);
+        }
+
+        return "";
     }
 
     @Override
@@ -53,21 +93,18 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
             return true;
         }
 
-        // instanceof handles nulls
         if (!(other instanceof NameContainsKeywordsPredicate)) {
             return false;
         }
 
         NameContainsKeywordsPredicate otherPredicate = (NameContainsKeywordsPredicate) other;
-        return nameKeywords.equals(otherPredicate.nameKeywords)
-                && parentKeywords.equals(otherPredicate.parentKeywords);
+        return keywordsMap.equals(otherPredicate.keywordsMap);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("nameKeywords", nameKeywords)
-                .add("parentKeywords", parentKeywords)
+                .add("keywordsMap", keywordsMap)
                 .toString();
     }
 }

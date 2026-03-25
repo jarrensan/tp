@@ -66,8 +66,8 @@ public class ImportCommandTest {
         ImportCommand importCommand = new ImportCommand(csvPath);
 
         assertThrows(CommandException.class,
-            String.format(ImportCommand.MESSAGE_CSV_INVALID_FORMAT, 2, Tag.MESSAGE_CONSTRAINTS),
-            () -> importCommand.execute(new ModelStubAcceptingPersons()));
+            String.format(ImportCommand.MESSAGE_CSV_INVALID_FORMAT, 2, Tag.MESSAGE_CONSTRAINTS), () ->
+                    importCommand.execute(new ModelStubAcceptingPersons()));
     }
 
     @Test
@@ -80,8 +80,8 @@ public class ImportCommandTest {
         ImportCommand importCommand = new ImportCommand(csvPath);
 
         assertThrows(CommandException.class,
-            String.format(ImportCommand.MESSAGE_CSV_INVALID_FORMAT, 2, Email.MESSAGE_CONSTRAINTS),
-                () -> importCommand.execute(new ModelStubAcceptingPersons()));
+            String.format(ImportCommand.MESSAGE_CSV_INVALID_FORMAT, 2, Email.MESSAGE_CONSTRAINTS), () ->
+                    importCommand.execute(new ModelStubAcceptingPersons()));
     }
 
     @Test
@@ -90,8 +90,8 @@ public class ImportCommandTest {
         ImportCommand importCommand = new ImportCommand(missingPath);
 
         assertThrows(CommandException.class,
-                String.format(ImportCommand.MESSAGE_FILE_READ_ERROR, missingPath),
-                () -> importCommand.execute(new ModelStubAcceptingPersons()));
+            String.format(ImportCommand.MESSAGE_FILE_READ_ERROR, missingPath), () ->
+                importCommand.execute(new ModelStubAcceptingPersons()));
     }
 
     private static class ModelStub implements Model {

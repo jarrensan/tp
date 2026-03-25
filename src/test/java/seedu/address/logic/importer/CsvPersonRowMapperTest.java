@@ -56,8 +56,7 @@ public class CsvPersonRowMapperTest {
 
         assertThrows(CommandException.class,
                 String.format(CsvPersonImporter.MESSAGE_CSV_INVALID_FORMAT, 3,
-                        "Expected 6 to 11 columns but found 2"),
-                () -> rowMapper.map(fields, 3));
+                        "Expected 6 to 11 columns but found 2"), () -> rowMapper.map(fields, 3));
     }
 
     @Test
@@ -66,7 +65,7 @@ public class CsvPersonRowMapperTest {
                 "Alice Tan", "10", "123 Street", "Jane Tan", "91234567", "not-an-email");
 
         assertThrows(CommandException.class,
-                String.format(CsvPersonImporter.MESSAGE_CSV_INVALID_FORMAT, 5, Email.MESSAGE_CONSTRAINTS),
-                () -> rowMapper.map(fields, 5));
+                String.format(CsvPersonImporter.MESSAGE_CSV_INVALID_FORMAT, 5, Email.MESSAGE_CONSTRAINTS), () ->
+                        rowMapper.map(fields, 5));
     }
 }

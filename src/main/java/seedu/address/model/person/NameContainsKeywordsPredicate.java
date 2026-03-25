@@ -45,8 +45,8 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
 
     /**
      * @param keywordsMap A map where each key is a prefix and the value is a list of
-     * user-provided keywords to match against the corresponding
-     * field in the Address Book.
+     *                    user-provided keywords to match against the corresponding
+     *                    field in the Address Book.
      */
     public NameContainsKeywordsPredicate(Map<Prefix, List<String>> keywordsMap) {
         this.keywordsMap = keywordsMap;

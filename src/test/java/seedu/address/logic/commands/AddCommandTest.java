@@ -157,6 +157,36 @@ public class AddCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void sortFilteredPersonListByName() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredPersonListByAge() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredPersonListByParentName() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredPersonListByParentPhone() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredPersonListByParentEmail() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearFilteredPersonListSorting() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

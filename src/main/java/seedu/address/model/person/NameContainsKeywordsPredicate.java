@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
@@ -63,9 +64,6 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         });
     }
 
-    /**
-     * Helper method to map a Prefix to a specific field in the Person object.
-     */
     private String getFieldByPrefix(Prefix prefix, Person person) {
         if (prefix.equals(PREFIX_NAME)) {
             return person.getName().fullName;
@@ -97,14 +95,19 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         if (prefix.equals(PREFIX_BEHAVIOR_REMARK)) {
             return person.getBehaviorRemark().value;
         }
-
         if (prefix.equals(PREFIX_TAG)) {
-            return person.getTags().stream()
-                    .map(tag -> tag.tagName)
-                    .reduce("", (acc, tag) -> acc + " " + tag);
+            return getTagsAsString(person);
         }
-
         return "";
+    }
+
+    /**
+     * Converts a person's tags into a space-separated string for keyword matching.
+     */
+    private String getTagsAsString(Person person) {
+        return person.getTags().stream()
+                .map(tag -> tag.tagName)
+                .collect(Collectors.joining(" "));
     }
 
     @Override

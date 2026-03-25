@@ -26,7 +26,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
-
+    private static final String SPLIT_BY_WHITESPACE = "\\s+";
     /**
      * Array of all prefixes that the FindCommand can search by.
      */
@@ -59,7 +59,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         if (!anyPrefixPresent) {
             // OPTION 1: Legacy search (No prefixes used)
             // Default to searching student names with the entire input string
-            keywordsMap.put(PREFIX_NAME, Arrays.asList(trimmedArgs.split("\\s+")));
+            keywordsMap.put(PREFIX_NAME, Arrays.asList(trimmedArgs.split(SPLIT_BY_WHITESPACE)));
         } else {
             // OPTION 2: Prefix-based search
             for (Prefix prefix : ALLOWED_PREFIXES) {

@@ -3,8 +3,10 @@ package seedu.address.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
@@ -28,6 +30,24 @@ public class HelpWindow extends UiPart<Stage> {
 
     @FXML
     private Label helpMessage;
+
+    @FXML
+    private ScrollPane scrollPane;
+
+    @FXML
+    private Label addSection;
+
+    @FXML
+    private Label deleteSection;
+
+    @FXML
+    private Label listSection;
+
+    @FXML
+    private Label remarkSection;
+
+    @FXML
+    private Label findSection;
 
     /**
      * Creates a new HelpWindow.
@@ -100,5 +120,47 @@ public class HelpWindow extends UiPart<Stage> {
         final ClipboardContent url = new ClipboardContent();
         url.putString(USERGUIDE_URL);
         clipboard.setContent(url);
+    }
+
+    /**
+     * Scrolls to the @code{node}
+     * @param node
+     */
+    private void scrollToNode(Node node) {
+        double totalHeight = scrollPane.getContent().getBoundsInLocal().getHeight();
+        double viewportHeight = scrollPane.getViewportBounds().getHeight();
+        double y = node.getBoundsInParent().getMinY();
+        double scrollableHeight = totalHeight - viewportHeight;
+
+        if (scrollableHeight > 0) {
+            scrollPane.setVvalue(y / scrollableHeight);
+        } else {
+            scrollPane.setVvalue(0.0);
+        }
+    }
+
+    @FXML
+    private void goToAdd() {
+        scrollToNode(addSection);
+    }
+
+    @FXML
+    private void goToDelete() {
+        scrollToNode(deleteSection);
+    }
+
+    @FXML
+    private void goToList() {
+        scrollToNode(listSection);
+    }
+
+    @FXML
+    private void goToRemark() {
+        scrollToNode(remarkSection);
+    }
+
+    @FXML
+    private void goToFind() {
+        scrollToNode(findSection);
     }
 }

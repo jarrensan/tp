@@ -139,6 +139,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasSimilarPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -155,6 +160,36 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredPersonListByName() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredPersonListByAge() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredPersonListByParentName() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredPersonListByParentPhone() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredPersonListByParentEmail() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearFilteredPersonListSorting() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -187,6 +222,12 @@ public class AddCommandTest {
         public boolean hasPerson(Person person) {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
+        public boolean hasSimilarPerson(Person person) {
+            requireNonNull(person);
+            return false;
         }
 
         @Override

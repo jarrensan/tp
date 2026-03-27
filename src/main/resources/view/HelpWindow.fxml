@@ -4,6 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ScrollPane?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root resizable="true" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/help_icon.png" />
   </icons>
@@ -24,7 +25,16 @@
 
       <VBox fx:id="helpMessageContainer">
         <children>
-          <ScrollPane fitToWidth="true">
+          <VBox spacing="8" styleClass="nav-panel">
+            <HBox>
+              <Hyperlink text="add" onAction="#goToAdd"/>
+              <Hyperlink text="delete" onAction="#goToDelete"/>
+              <Hyperlink text="list" onAction="#goToList"/>
+              <Hyperlink text="remark" onAction="#goToRemark"/>
+              <Hyperlink text="find" onAction="#goToFind"/>
+            </HBox>
+          </VBox>
+          <ScrollPane fitToWidth="true" fx:id="scrollPane">
             <content>
               <VBox spacing="6">
                 <padding>
@@ -32,26 +42,24 @@
                 </padding>
                 <Label text="Getting Started" styleClass="help-title"/>
 
-
                 <Separator/>
 
-                <Label text="Add Student" styleClass="help-section"/>
+                <Label fx:id="addSection" text="Add a student" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
-                <Label text="add n/STUDENT-NAME pn/PARENT-NAME pc/PARENT-PHONE pe/PARENT-EMAIL a/ADDRESS" styleClass="help-command" wrapText="True"/>
+                <Label text="add n/STUDENT_NAME a/AGE ad/ADDRESS pn/PARENT_NAME pc/PARENT_PHONE pe/PARENT_EMAIL" styleClass="help-command" wrapText="True"/>
                 <Label text="Examples:" styleClass="help-subtitle"/>
 
                 <VBox spacing="2" styleClass="example-box">
                   <padding>
                     <Insets top="10" right="15" bottom="10" left="15"/>
                   </padding>
-                  <Label text="add n/James" styleClass="help-example"/>
-                  <Label text="add n/James Lim a/5" styleClass="help-example"/>
-                  <Label text="add n/James pc/91234567 pe/paul@gmail.com" styleClass="help-example"/>
+                  <Label wrapText="True" text="add n/James Cook a/12 ad/Blk 132 Edgedale Plains, #15-96 pn/Madison Cook pc/87654321 pe/maddie@gmail.com"/>
+                  <Label wrapText="True" text="add n/Mary Chew a/7 ad/Blk 123 Bukit Merah Lane, #12-23 pn/Augusta Chew pc/12345678 pe/augusta@email.com t/allergies"/>
                 </VBox>
 
                 <Separator/>
 
-                <Label text="Delete Student" styleClass="help-section"/>
+                <Label fx:id="deleteSection" text="Delete a student" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
                 <Label text="delete INDEX" styleClass="help-command"/>
                 <Label text="Examples:" styleClass="help-subtitle"/>
@@ -65,15 +73,79 @@
 
                 <Separator/>
 
-                <Label text="List Students" styleClass="help-section"/>
+                <Label fx:id="remarkSection" text="Remark" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
-                <Label text="list" styleClass="help-command"/>
+                <Label wrapText="true" text="remark INDEX r/GENERAL_REMARK d/DIETARY_INFORMATION c/CLASS_INFORMATION b/BEHAVIORAL_INFORMATION" styleClass="help-command"/>
+
+                <Label text="Description:" styleClass="help-subtitle"/>
+                <Label wrapText="true" text="Adds or updates remark fields for the student at the specified index." />
+
+                <Label text="Notes:" styleClass="help-subtitle"/>
+                <Label text="- You must provide at least one prefix (r/, d/, c/, or b/)." wrapText="true"/>
+                <Label text="- Multiple prefixes can be used to update multiple fields at the same time." wrapText="true"/>
+                <Label text="- Existing remarks will be overwritten by the new values." wrapText="true"/>
+                <Label text="- To delete a remark, use the prefix with no value (e.g. remark 1 r/)." wrapText="true"/>
+
+                <Label text="Examples:" styleClass="help-subtitle"/>
+                <VBox spacing="2" styleClass="example-box">
+                  <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                  </padding>
+                  <Label text="remark 1 r/enjoys sports"/>
+                  <Label text="remark 1 d/allergic to shellfish"/>
+                  <Label text="remark 1 r/enjoys sports d/allergic to shellfish"/>
+                  <Label wrapText="true" text="remark 1 r/enjoys sports d/allergic to shellfish c/1C b/very energetic"/>
+                </VBox>
 
                 <Separator/>
 
-                <Label text="Help" styleClass="help-section"/>
+                <Label fx:id="listSection" text="List all students" styleClass="help-section"/>
+                <Label text="Lists all students. If a prefix is provided, the list is sorted by that field." />
                 <Label text="Command:" styleClass="help-subtitle"/>
-                <Label text="help" styleClass="help-command"/>
+                <Label text="list [PREFIX]" styleClass="help-command"/>
+
+                <Label text="Description:" styleClass="help-subtitle"/>
+                <Label text="Displays all students. If a prefix is provided, the list is sorted by that field." wrapText="true"/>
+
+                <Label text="Notes:" styleClass="help-subtitle"/>
+                <Label text="- If no prefix is given, students are shown in the default order." wrapText="true"/>
+                <Label text="- Only one prefix can be used at a time." wrapText="true"/>
+                <Label text="- Sorting is done in ascending order." wrapText="true"/>
+                <Label text="- Supported prefixes include n/, pn/, ag/, etc." wrapText="true"/>
+
+                <Label text="Examples:" styleClass="help-subtitle"/>
+                <VBox spacing="2" styleClass="example-box">
+                  <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                  </padding>
+                  <Label text="list n/"/>
+                  <Label text="list pn/"/>
+                  <Label text="list ag/"/>
+                </VBox>
+
+                <Separator/>
+
+                <Label fx:id="findSection" text="Find" styleClass="help-section"/>
+                <Label text="Command:" styleClass="help-subtitle"/>
+                <Label text="find PREFIX/KEYWORD" styleClass="help-command"/>
+
+                <Label text="Description:" styleClass="help-subtitle"/>
+                <Label text="Filters contacts by one or more fields. Returns contacts that match ANY of the given keywords (OR search)." wrapText="true"/>
+
+                <Label text="Notes:" styleClass="help-subtitle"/>
+                <Label text="- Multiple parameters can be used (e.g. n/, a/, pn/, pe/)." wrapText="true"/>
+                <Label text="- Matches are case-insensitive." wrapText="true"/>
+                <Label text="- A contact is shown if it matches at least one condition." wrapText="true"/>
+
+                <Label text="Examples:" styleClass="help-subtitle"/>
+                <VBox spacing="2" styleClass="example-box">
+                  <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                  </padding>
+                  <Label text="find n/Jane"/>
+                  <Label text="find pn/Jane Doe n/Jane"/>
+                  <Label text="find a/11"/>
+                </VBox>
 
               </VBox>
             </content>

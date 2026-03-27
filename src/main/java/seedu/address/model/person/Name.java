@@ -38,6 +38,17 @@ public class Name {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns a normalized version of the name where:
+     * - all characters are converted to lowercase
+     * - leading and trailing whitespace is removed
+     * - multiple internal spaces are collapsed into a single space
+     *
+     * @return normalized name string
+     */
+    public String normalizeName() {
+        return fullName.replaceAll("\\s+", " ").trim().toLowerCase();
+    }
 
     @Override
     public String toString() {

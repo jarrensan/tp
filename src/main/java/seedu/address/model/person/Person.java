@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -8,6 +9,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.remarks.BehaviorRemark;
+import seedu.address.model.person.remarks.ClassRemark;
 import seedu.address.model.person.remarks.DietaryRemark;
 import seedu.address.model.person.remarks.Remark;
 import seedu.address.model.tag.Tag;
@@ -26,6 +29,8 @@ public class Person {
     private final Address address;
     private final Remark remark;
     private final DietaryRemark dietaryRemark;
+    private final ClassRemark classRemark;
+    private final BehaviorRemark behaviorRemark;
     private final Set<Tag> tags = new HashSet<>();
 
     // Parent fields
@@ -37,13 +42,16 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Age age, Address address, Set<Tag> tags, Name parentName,
-                  Phone parentPhone, Email parentEmail, Remark remark, DietaryRemark dietaryRemark) {
+                  Phone parentPhone, Email parentEmail, Remark remark, DietaryRemark dietaryRemark,
+                  ClassRemark classRemark, BehaviorRemark behaviorRemark) {
         requireAllNonNull(name, address, tags, parentName, parentPhone, parentEmail);
         this.name = name;
         this.age = age;
         this.address = address;
         this.remark = remark;
         this.dietaryRemark = dietaryRemark;
+        this.classRemark = classRemark;
+        this.behaviorRemark = behaviorRemark;
         this.tags.addAll(tags);
         this.parentName = parentName;
         this.parentPhone = parentPhone;
@@ -82,6 +90,14 @@ public class Person {
         return dietaryRemark;
     }
 
+    public ClassRemark getClassRemark() {
+        return classRemark;
+    }
+
+    public BehaviorRemark getBehaviorRemark() {
+        return behaviorRemark;
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -101,6 +117,21 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
+    }
+
+    /**
+     * Returns true if this person and the other person have equal names after normalization.
+     * Normalization is defined by {@link Name#normalizeName()}, which ignores case differences
+     * and collapses extra whitespace.
+     * This method does not consider other attributes such as email or phone number.
+     *
+     * @param otherPerson the person to compare against
+     * @return true if both persons have equal normalized names
+     * @throws NullPointerException if otherPerson is null
+     */
+    public boolean hasSimilarName(Person otherPerson) {
+        requireNonNull(otherPerson);
+        return getName().normalizeName().equals(otherPerson.getName().normalizeName());
     }
 
     /**

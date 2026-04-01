@@ -39,13 +39,7 @@ public class ParserUtilTest {
     private static final String VALID_AGE = "21";
 
     private static final String WHITESPACE = " \t\r\n";
-
-    // Constants for range/multiple indices tests
-    private static final String VALID_RANGE = "1-3";
-    private static final String INVALID_RANGE_FORMAT = "1-2-3";
-    private static final String INVALID_RANGE_ORDER = "3-1";
-    private static final String VALID_INDICES_MIXED = "1 3-5 7";
-
+    
     @Test
     public void parseIndex_invalidInput_throwsParseException() {
         assertThrows(ParseException.class, () -> ParserUtil.parseIndex("10 a"));

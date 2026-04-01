@@ -129,7 +129,7 @@
                 <Label text="find PREFIX/KEYWORD" styleClass="help-command"/>
 
                 <Label text="Description:" styleClass="help-subtitle"/>
-                <Label text="Filters contacts by one or more fields. Returns contacts that match ANY of the given keywords (OR search)." wrapText="true"/>
+                <Label text="Filters contacts by one or more fields. Returns contacts that match ANY of the given keywords (OR search). If no prefix is specified (e.g., n/, a/, pn/, pe/), the search will default to student name (n/)." wrapText="true"/>
 
                 <Label text="Notes:" styleClass="help-subtitle"/>
                 <Label text="- Multiple parameters can be used (e.g. n/, a/, pn/, pe/)." wrapText="true"/>

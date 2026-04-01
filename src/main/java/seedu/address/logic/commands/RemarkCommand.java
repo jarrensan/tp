@@ -36,7 +36,7 @@ public class RemarkCommand extends Command {
             + PREFIX_BEHAVIOR_REMARK + "[BEHAVIOR REMARK] or "
             + PREFIX_CLASS_REMARK + "[CLASS].\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_REMARK + "Likes to swim."
+            + PREFIX_REMARK + "Likes to swim. "
             + PREFIX_DIETARY_REMARK + "Salmon.";
 
     public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Student: %1$s";

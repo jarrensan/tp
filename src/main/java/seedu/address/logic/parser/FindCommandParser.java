@@ -13,10 +13,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENT_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -27,6 +29,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
  */
 public class FindCommandParser implements Parser<FindCommand> {
     private static final String SPLIT_BY_WHITESPACE = "\\s+";
+
     /**
      * Array of all prefixes that the FindCommand can search by.
      */
@@ -43,37 +46,42 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform to the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
-
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, ALLOWED_PREFIXES);
         Map<Prefix, List<String>> keywordsMap = new HashMap<>();
 
-        // Check if any prefixes were actually used in the command
-        boolean anyPrefixPresent = Arrays.stream(ALLOWED_PREFIXES)
-                .anyMatch(prefix -> argMultimap.getValue(prefix).isPresent());
+        // Handle Preamble
+        String preamble = argMultimap.getPreamble().trim();
+        if (!preamble.isEmpty()) {
+            keywordsMap.put(PREFIX_NAME, new ArrayList<>(Arrays.asList(preamble.split(SPLIT_BY_WHITESPACE))));
+        }
 
-        if (!anyPrefixPresent) {
-            // OPTION 1: Legacy search (No prefixes used)
-            // Default to searching student names with the entire input string
-            keywordsMap.put(PREFIX_NAME, Arrays.asList(trimmedArgs.split(SPLIT_BY_WHITESPACE)));
-        } else {
-            // OPTION 2: Prefix-based search
-            for (Prefix prefix : ALLOWED_PREFIXES) {
-                if (argMultimap.getValue(prefix).isPresent()) {
-                    List<String> keywords = argMultimap.getAllValues(prefix);
+        // Process all other prefixes
+        for (Prefix prefix : ALLOWED_PREFIXES) {
+            if (argMultimap.getValue(prefix).isPresent()) {
+                List<String> keywords = argMultimap.getAllValues(prefix).stream()
+                        .flatMap(s -> Arrays.stream(s.trim().split(SPLIT_BY_WHITESPACE)))
+                        .filter(s -> !s.isEmpty())
+                        .collect(Collectors.toList());
 
-                    // Validation: Throws error if user wrote "n/" but provided no name
-                    if (keywords.stream().anyMatch(String::isEmpty)) {
-                        throw new ParseException(
-                                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-                    }
+                if (keywords.isEmpty()) {
+                    throw new ParseException(
+                            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                }
+
+                // If it's a name prefix, merge with preamble keywords if they already exist
+                if (prefix.equals(PREFIX_NAME)) {
+                    List<String> existingNames = keywordsMap.getOrDefault(PREFIX_NAME, new ArrayList<>());
+                    existingNames.addAll(keywords);
+                    keywordsMap.put(PREFIX_NAME, existingNames);
+                } else {
                     keywordsMap.put(prefix, keywords);
                 }
             }
+        }
+
+        if (keywordsMap.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
         return new FindCommand(new NameContainsKeywordsPredicate(keywordsMap));

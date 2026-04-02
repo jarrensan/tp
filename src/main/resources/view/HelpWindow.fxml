@@ -44,7 +44,7 @@
 
                 <Separator/>
 
-                <Label fx:id="addSection" text="Add a student" styleClass="help-section"/>
+                <Label fx:id="addSection" text="Add" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
                 <Label text="add n/STUDENT_NAME a/AGE ad/ADDRESS pn/PARENT_NAME pc/PARENT_PHONE pe/PARENT_EMAIL" styleClass="help-command" wrapText="True"/>
                 <Label text="Examples:" styleClass="help-subtitle"/>
@@ -109,7 +109,7 @@
 
                 <Separator/>
 
-                <Label fx:id="listSection" text="List all students" styleClass="help-section"/>
+                <Label fx:id="listSection" text="List" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
                 <Label text="list [n/] | [a/] | [pn/] | [pc/] | [pe/]" styleClass="help-command" wrapText="true"/>
 

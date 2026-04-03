@@ -44,7 +44,7 @@
 
                 <Separator/>
 
-                <Label fx:id="addSection" text="Add a student" styleClass="help-section"/>
+                <Label fx:id="addSection" text="Add" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
                 <Label text="add n/STUDENT_NAME a/AGE ad/ADDRESS pn/PARENT_NAME pc/PARENT_PHONE pe/PARENT_EMAIL" styleClass="help-command" wrapText="True"/>
                 <Label text="Examples:" styleClass="help-subtitle"/>
@@ -53,29 +53,39 @@
                   <padding>
                     <Insets top="10" right="15" bottom="10" left="15"/>
                   </padding>
-                  <Label wrapText="True" text="add n/James Cook a/12 ad/Blk 132 Edgedale Plains, #15-96 pn/Madison Cook pc/87654321 pe/maddie@gmail.com"/>
-                  <Label wrapText="True" text="add n/Mary Chew a/7 ad/Blk 123 Bukit Merah Lane, #12-23 pn/Augusta Chew pc/12345678 pe/augusta@email.com t/allergies"/>
+                  <Label wrapText="True" text="1. add n/James Cook a/12 ad/Blk 132 Edgedale Plains, #15-96 pn/Madison Cook pc/87654321 pe/maddie@gmail.com"/>
+                  <Label wrapText="True" text="2. add n/Mary Chew a/7 ad/Blk 123 Bukit Merah Lane, #12-23 pn/Augusta Chew pc/12345678 pe/augusta@email.com t/allergies"/>
                 </VBox>
 
                 <Separator/>
 
-                <Label fx:id="deleteSection" text="Delete a student" styleClass="help-section"/>
+                <Label fx:id="deleteSection" text="Delete" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
-                <Label text="delete INDEX" styleClass="help-command"/>
+                <Label text="delete INDEX [INDEX] [START-END] ..." styleClass="help-command" wrapText="true"/>
+
+                <Label text="Description:" styleClass="help-subtitle"/>
+                <Label text="Deletes one or more students using their index numbers." wrapText="true"/>
+
+                <Label text="Notes:" styleClass="help-subtitle"/>
+                <Label text="- Supports bulk deletion by providing multiple indices and/or ranges." wrapText="true"/>
+                <Label text="- Ranges are inclusive (e.g. 3-5 deletes indices 3, 4, and 5)." wrapText="true"/>
+                <Label text="- You can combine indices and ranges (e.g. 1 3 5-7)." wrapText="true"/>
+
                 <Label text="Examples:" styleClass="help-subtitle"/>
                 <VBox spacing="2" styleClass="example-box">
                   <padding>
                     <Insets top="15" right="15" bottom="15" left="15"/>
                   </padding>
-                  <Label text="delete 1"/>
-                  <Label text="delete 3"/>
+                  <Label text="1. delete 1" wrapText="true"/>
+                  <Label text="2. delete 3-7" wrapText="true"/>
+                  <Label text="2. delete 1 3 5 7-9 10-14" wrapText="true"/>
                 </VBox>
 
                 <Separator/>
 
                 <Label fx:id="remarkSection" text="Remark" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
-                <Label wrapText="true" text="remark INDEX r/GENERAL_REMARK d/DIETARY_INFORMATION c/CLASS_INFORMATION b/BEHAVIORAL_INFORMATION" styleClass="help-command"/>
+                <Label wrapText="true" text="remark INDEX r/[REMARK] or d/[DIETARY REMARK] or b/[BEHAVIOR REMARK] or c/[CLASS]" styleClass="help-command"/>
 
                 <Label text="Description:" styleClass="help-subtitle"/>
                 <Label wrapText="true" text="Adds or updates remark fields for the student at the specified index." />
@@ -91,18 +101,17 @@
                   <padding>
                     <Insets top="15" right="15" bottom="15" left="15"/>
                   </padding>
-                  <Label text="remark 1 r/enjoys sports"/>
-                  <Label text="remark 1 d/allergic to shellfish"/>
-                  <Label text="remark 1 r/enjoys sports d/allergic to shellfish"/>
-                  <Label wrapText="true" text="remark 1 r/enjoys sports d/allergic to shellfish c/1C b/very energetic"/>
+                  <Label text="1. remark 1 r/enjoys sports" wrapText="true"/>
+                  <Label text="2. remark 1 d/allergic to shellfish" wrapText="true"/>
+                  <Label text="3. remark 1 r/enjoys sports d/allergic to shellfish" wrapText="true"/>
+                  <Label text="remark 1 r/enjoys sports d/allergic to shellfish c/1C b/very energetic" wrapText="true"/>
                 </VBox>
 
                 <Separator/>
 
-                <Label fx:id="listSection" text="List all students" styleClass="help-section"/>
-                <Label text="Lists all students. If a prefix is provided, the list is sorted by that field." />
+                <Label fx:id="listSection" text="List" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
-                <Label text="list [PREFIX]" styleClass="help-command"/>
+                <Label text="list [n/] | [a/] | [pn/] | [pc/] | [pe/]" styleClass="help-command" wrapText="true"/>
 
                 <Label text="Description:" styleClass="help-subtitle"/>
                 <Label text="Displays all students. If a prefix is provided, the list is sorted by that field." wrapText="true"/>
@@ -111,26 +120,26 @@
                 <Label text="- If no prefix is given, students are shown in the default order." wrapText="true"/>
                 <Label text="- Only one prefix can be used at a time." wrapText="true"/>
                 <Label text="- Sorting is done in ascending order." wrapText="true"/>
-                <Label text="- Supported prefixes include n/, pn/, ag/, etc." wrapText="true"/>
+                <Label text="- Supported prefixes include n/, a/, pn/, pc/, pe/" wrapText="true"/>
 
                 <Label text="Examples:" styleClass="help-subtitle"/>
                 <VBox spacing="2" styleClass="example-box">
                   <padding>
                     <Insets top="15" right="15" bottom="15" left="15"/>
                   </padding>
-                  <Label text="list n/"/>
-                  <Label text="list pn/"/>
-                  <Label text="list ag/"/>
+                  <Label text="1. list n/" wrapText="true"/>
+                  <Label text="2. list pn/" wrapText="true"/>
+                  <Label text="3. list a/" wrapText="true"/>
                 </VBox>
 
                 <Separator/>
 
                 <Label fx:id="findSection" text="Find" styleClass="help-section"/>
                 <Label text="Command:" styleClass="help-subtitle"/>
-                <Label text="find PREFIX/KEYWORD" styleClass="help-command"/>
+                <Label text="find [NAME...] [n/NAME] [a/AGE] [ad/ADDRESS] [t/TAG] [pn/PARENT_NAME] [pc/PARENT_PHONE] [pe/PARENT_EMAIL] [d/DIETARY] [c/CLASS] [b/BEHAVIOR]" styleClass="help-command" wrapText="true"/>
 
                 <Label text="Description:" styleClass="help-subtitle"/>
-                <Label text="Filters contacts by one or more fields. Returns contacts that match ANY of the given keywords (OR search)." wrapText="true"/>
+                <Label text="Filters contacts by one or more fields. Returns contacts that match ANY of the given keywords (OR search). If no prefix is specified (e.g., n/, a/, pn/, pe/), the search will default to student name (n/)." wrapText="true"/>
 
                 <Label text="Notes:" styleClass="help-subtitle"/>
                 <Label text="- Multiple parameters can be used (e.g. n/, a/, pn/, pe/)." wrapText="true"/>
@@ -142,9 +151,9 @@
                   <padding>
                     <Insets top="15" right="15" bottom="15" left="15"/>
                   </padding>
-                  <Label text="find n/Jane"/>
-                  <Label text="find pn/Jane Doe n/Jane"/>
-                  <Label text="find a/11"/>
+                  <Label text="1. find n/Jane" wrapText="true"/>
+                  <Label text="2. find pn/Jane Doe n/Jane" wrapText="true"/>
+                  <Label text="3. find a/11" wrapText="true"/>
                 </VBox>
 
               </VBox>

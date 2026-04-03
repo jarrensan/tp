@@ -63,7 +63,7 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -94,23 +94,23 @@ Examples:
 * `add n/James Cook a/12 ad/Blk 132 Edgedale Plains, #15-96 pn/Madison Cook pc/87654321 pe/maddie@gmail.com`
 * `add n/Mary Chew a/7 ad/Blk 123 Bukit Merah Lane, #12-23 pn/Augusta Chew pc/12345678 pe/augusta@email.com t/allergies t/basketball`
 
-### Weak Duplicate Name Detection
+### Duplicate name detection
 
-If you add a student whose name closely matches an existing name, the system will display a warning and show a list of similar names. However, the student will still be added.
+If a student whose name matches an existing name after normalization is added, the system will display a warning and show a list of similar names. However, the student will still be added.
 
-A name is considered a match after normalization, which means:
+A name is considered a match after normalization if the name is the same after:
 
 * Differences in capitalization are ignored
 * Extra spaces are removed
 
-For example, John Doe and john doe are treated as the same name.
+For example, `John Doe` and `john doe` are treated as the same name.
 
 Limitations:
 
 This check is limited and may miss some similar names
 For example:
-Justine Ong vs Justin Ong will not trigger a warning
-Babe Ruth vs BabeRuth will not trigger a warning
+* `Justine Ong` vs `Justin Ong` will not trigger a warning
+* `Annabelle` vs `Anna Belle` will not trigger a warning
 
 ### Listing all persons : `list`
 

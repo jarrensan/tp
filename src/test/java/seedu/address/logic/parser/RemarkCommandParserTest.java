@@ -96,27 +96,26 @@ public class RemarkCommandParserTest {
 
     @Test
     public void parse_repeatedPrefixes_failure() {
-            Index targetIndex = INDEX_FIRST_PERSON;
+        Index targetIndex = INDEX_FIRST_PERSON;
 
-            // duplicate remark
-            String userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK + "first " + PREFIX_REMARK + "second";
-            assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_REMARK));
+        // duplicate remark
+        String userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK + "first " + PREFIX_REMARK + "second";
+        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_REMARK));
 
-            // duplicate dietaryRemark
-            userInput = targetIndex.getOneBased() + " " + PREFIX_DIETARY_REMARK + "veg "
-                            + PREFIX_DIETARY_REMARK + "halal";
-            assertParseFailure(parser, userInput,
-                            Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DIETARY_REMARK));
+        // duplicate dietaryRemark
+        userInput = targetIndex.getOneBased() + " " + PREFIX_DIETARY_REMARK + "veg "
+                        + PREFIX_DIETARY_REMARK + "halal";
+        assertParseFailure(parser, userInput,
+                        Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DIETARY_REMARK));
 
-            // duplicate classRemark
-            userInput = targetIndex.getOneBased() + " " + PREFIX_CLASS_REMARK + "P3-A " + PREFIX_BEHAVIOR_REMARK
-                            + "calm " + PREFIX_CLASS_REMARK + "P3-B";
-            assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CLASS_REMARK));
+        // duplicate classRemark
+        userInput = targetIndex.getOneBased() + " " + PREFIX_CLASS_REMARK + "P3-A " + PREFIX_BEHAVIOR_REMARK
+                        + "calm " + PREFIX_CLASS_REMARK + "P3-B";
+        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CLASS_REMARK));
 
-            // duplicate behaviorRemark
-            userInput = targetIndex.getOneBased() + " " + PREFIX_BEHAVIOR_REMARK
-                + "calm " + PREFIX_BEHAVIOR_REMARK + "noisy";
-            assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_BEHAVIOR_REMARK));
-
+        // duplicate behaviorRemark
+        userInput = targetIndex.getOneBased() + " " + PREFIX_BEHAVIOR_REMARK
+            + "calm " + PREFIX_BEHAVIOR_REMARK + "noisy";
+        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_BEHAVIOR_REMARK));
     }
 }

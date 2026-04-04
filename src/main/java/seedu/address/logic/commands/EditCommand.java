@@ -94,13 +94,14 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(personToEdit, editedPerson);
-
         String feedbackToUser = String.format(MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
 
-        if (!personToEdit.isSamePerson(editedPerson) &&
-                !personToEdit.hasSimilarName(editedPerson) &&
-                model.hasSimilarPerson(editedPerson)) {
+        boolean isDuplicateWarningApplicable = !personToEdit.hasSimilarName(editedPerson)
+                && model.hasSimilarPerson(editedPerson);
+
+        model.setPerson(personToEdit, editedPerson);
+
+        if (isDuplicateWarningApplicable) {
             feedbackToUser = MESSAGE_EDIT_PERSON_WARNING + feedbackToUser;
             model.updateFilteredPersonList(person -> person.hasSimilarName(editedPerson));
             assert model.getFilteredPersonList() != null : "Model filtered list should not be null after update";

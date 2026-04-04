@@ -198,6 +198,35 @@ Examples:
 * `remark 1 r/enjoys sports d/allergic to shellfish c/1C b/very energetic`
 adds the following remarks to the student at index 1
 
+### Importing students : `import`
+
+Imports students from a CSV file into the address book.
+
+Format: `import FILE_PATH`
+
+* `FILE_PATH` can be relative (e.g. `data/contacts.csv`) or absolute.
+* If the path contains spaces, wrap it in quotes.
+  e.g. `import "data/my contacts.csv"`
+* The CSV must contain these fixed columns in this order:
+  * `0=name`
+  * `1=age`
+  * `2=address`
+  * `3=parentName`
+  * `4=parentPhone`
+  * `5=parentEmail`
+  * `6=tags`
+  * `7=remark`
+  * `8=dietaryRemark`
+  * `9=classRemark`
+  * `10=behaviorRemark`
+* Optional fields (`tags`, `remark`, `dietaryRemark`, `classRemark`, `behaviorRemark`) can be left empty.
+* If tags are present, separate them with semicolons `;` in the tags column.
+* Duplicate students (same identity) are skipped and reported in the command result.
+
+Examples:
+* `import data/contacts.csv`
+* `import "data/term 2/students.csv"`
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
@@ -215,6 +244,12 @@ Format: `exit`
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Importing the data
+
+Use the `import` command to load students from a CSV file:
+
+* `import data/contacts.csv`
+
+Refer to [Importing students : `import`](#importing-students--import) for the required CSV format.
 
 ### Editing the data file
 
@@ -256,5 +291,6 @@ Action     | Format, Examples
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Import** | `import FILE_PATH`<br> e.g., `import data/contacts.csv`
 **List**   | `list`
 **Help**   | `help`

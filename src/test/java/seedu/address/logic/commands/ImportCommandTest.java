@@ -94,6 +94,9 @@ public class ImportCommandTest {
                 importCommand.execute(new ModelStubAcceptingPersons()));
     }
 
+    /**
+     * A default model stub that have all of the methods failing.
+     */
     private static class ModelStub implements Model {
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -199,6 +202,9 @@ public class ImportCommandTest {
         }
     }
 
+    /**
+     * A Model stub that contains a List of Person.
+     */
     private static class ModelStubAcceptingPersons extends ModelStub {
         private final List<Person> personsAdded = new ArrayList<>();
 

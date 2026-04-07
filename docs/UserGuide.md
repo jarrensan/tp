@@ -156,7 +156,7 @@ Format: `find [NAME] [n/NAME] [a/AGE] [ad/ADDRESS] [t/TAG] [pn/PARENT_NAME] [pc/
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 * At least one of the optional fields must be provided.
-* If a prefix is provided, then it must not be empty (e.g., find n/ will result in an error).
+* If a prefix is provided, then it must not be empty (e.g., `find n/` will result in an error).
 * Use the list command to return to the full list after using find.
 
 Examples:

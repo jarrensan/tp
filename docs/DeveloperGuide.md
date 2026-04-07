@@ -470,7 +470,7 @@ testers are expected to do more *exploratory* testing.
     Expected: Both `Alice Yeoh` and `Benson Meier` are shown in the list.
 
     1. Test case: `find a/11`<br>
-    Expected: `Alice` is shown. (Note: `find a/1` should return no results if no one is exactly age 1).
+    Expected: `Alice Yeoh` is shown. (Note: `find a/1` should return no results if no one is exactly age 1).
    
     1. Test case: `find n/`<br>
     Expected: No search is performed. Error message for invalid command format is shown.

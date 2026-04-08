@@ -13,7 +13,7 @@
 
 ## **Acknowledgements**
 
-_{ list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well }_
+This project is adapted from [AddressBook-Level3](https://se-education.org/addressbook-level3/).
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -251,6 +251,67 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
+### Import feature
+
+#### Implementation
+
+The import feature allows users to bulk-add students from a CSV file using the command `import FILE_PATH`.
+
+At a high level, the command flow is:
+
+1. `LogicManager` sends the user input to `AddressBookParser`.
+1. `AddressBookParser` calls `ImportCommandParser` for `import` commands.
+1. `ImportCommandParser` validates arguments, strips optional surrounding quotes, converts the path into `java.nio.file.Path`, and creates `ImportCommand`.
+1. `ImportCommand#execute(Model)` calls `CsvPersonImporter#read(Path)` to parse the file into `Person` objects.
+1. `ImportCommand` iterates through parsed persons:
+   1. If `Model#hasPerson(person)` is true, the person is counted as a skipped duplicate.
+   1. Otherwise, `Model#addPerson(person)` is called.
+1. A `CommandResult` is returned with both imported and skipped duplicate counts.
+
+The sequence diagram below summarizes this interaction:
+
+<puml src="diagrams/ImportSequenceDiagram.puml" alt="ImportSequenceDiagram" />
+
+`CsvPersonImporter` and `CsvPersonRowMapper` handle CSV-specific concerns:
+
+* Rows are read in UTF-8.
+* Empty lines are ignored.
+* The first non-empty row is treated as a header and skipped if it matches
+  `name,age,address,parentName,parentPhone,parentEmail` (case-insensitive and whitespace-insensitive).
+* Quoted fields and escaped quotes (`""`) are supported.
+* Each row must contain between 6 and 11 columns:
+  * Required: `name`, `age`, `address`, `parentName`, `parentPhone`, `parentEmail`
+  * Optional: `tags`, `remark`, `dietaryRemark`, `classRemark`, `behaviorRemark`
+* Tags in the tags column are split by `;` and parsed as individual tags.
+
+Error handling:
+
+* If the file cannot be read, the command fails with a file-read error.
+* If a CSV row is formatted incorrectly (e.g., unclosed quotes, invalid column count, or invalid field values), the command fails with the line number and validation reason.
+* If duplicate persons are encountered, they are skipped (not treated as errors) and reported in the success message.
+
+#### Design considerations
+
+**Aspect: Duplicate handling policy**
+
+* **Alternative 1 (current choice):** Skip duplicates and continue importing.
+  * Pros: Better UX for bulk imports and idempotent repeated imports.
+  * Cons: Users must check feedback to know exactly which rows were skipped.
+
+* **Alternative 2:** Fail the entire import on first duplicate.
+  * Pros: Strict behavior and clearer all-or-nothing semantics.
+  * Cons: Less practical for real-world CSV files that may contain existing contacts.
+
+**Aspect: CSV parsing strategy**
+
+* **Alternative 1 (current choice):** Lightweight in-house parser (`CsvPersonImporter`).
+  * Pros: No additional dependency and behavior is fully controlled.
+  * Cons: Must maintain parser logic internally.
+
+* **Alternative 2:** Use a third-party CSV library.
+  * Pros: Mature parsing features and potentially fewer edge-case bugs.
+  * Cons: Adds dependency and integration overhead for a relatively small feature.
+
 ### \[Proposed\] Data archiving
 
 _{Explain here how the data archiving feature will be implemented}_
@@ -292,6 +353,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user                                       | add student’s contact                                      | add their contact information if they are a new student                  |
 | `* * *`  | user                                       | add a parent’s contact information under student’s contact | know which parent to contact for a specific student                      |
 | `* * *`  | user                                       | delete a student’s contact                                 | remove their contact information if they are no longer part of the class |
+| `* *`    | user                                       | import students from a CSV file                            | add many contacts quickly without repetitive manual entry                |
 | `* * *`  | new user                                   | see how each command works by typing help                  | learn how to use the CLI                                                 |
 | `* * *`  | user                                       | scroll to find a contact                                   | view the person’s contact information                                    |
 | `* *`    | user                                       | search for a parent’s name or a student’s name             | find the contact if I only remember one of their names                   |
@@ -388,6 +450,38 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 
     Use case ends.
+
+**Use case: UC5 - Import students from a CSV file**
+
+**MSS**
+
+1.  Student care supervisor requests to import students with a CSV file path.
+2.  CareContacts reads and validates the CSV file.
+3.  CareContacts adds all valid non-duplicate students and skips duplicates.
+4.  CareContacts displays a summary with imported and skipped duplicate counts.
+
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. CareContacts detects an invalid command format.
+
+    * 1a1. CareContacts displays an error message.
+
+      Use case ends.
+
+* 1b. The specified CSV file cannot be read.
+
+    * 1b1. CareContacts displays an error message.
+
+      Use case ends.
+
+* 2a. CareContacts detects an invalid CSV row format or invalid field value.
+
+    * 2a1. CareContacts displays an error message with the CSV line number.
+
+      Use case ends.
 
 *{More to be added}*
 
@@ -492,6 +586,80 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `list a`, `list 123`, `list .`
     Expected: View of contacts does not change. Error details are shown in the status message.
+
+### Adding or removing remarks
+
+1. Adding a general remark
+
+   1. Prerequisites: List all persons using the `list` command. Ensure there is at least one person.
+
+   1. Test case: `remark 1 r/Needs extra attention`<br>
+      Expected: Person at index 1 is updated with the new remark. A success message is shown.
+
+   1. Test case: `remark 1`<br>
+      Expected: No changes are made. Error message for invalid command format is shown.
+
+   1. Test case: `remark 0 r/test`<br>
+      Expected: No changes are made. Error message for invalid command format is shown.
+
+   1. Test case: `remark 999 r/test` (where 999 is out of range)<br>
+      Expected: No changes are made. Error message indicates invalid person index.
+
+1. Adding multiple remark fields in one command
+
+   1. Prerequisites: List all persons using the `list` command.
+
+   1. Test case: `remark 1 r/enjoys sports d/allergic to shellfish c/1C b/very energetic`<br>
+      Expected: Person at index 1 has all specified fields updated. A success message is shown.
+
+1. Removing an existing remark field
+
+   1. Prerequisites: Ensure person at index 1 already has a dietary remark.
+
+   1. Test case: `remark 1 d/`<br>
+      Expected: Dietary remark for person at index 1 is removed. A success message is shown.
+
+1. Attempting to remove an already empty field
+
+   1. Prerequisites: Ensure person at index 1 has an empty remark field.
+
+   1. Test case: `remark 1 r/`<br>
+      Expected: No changes are made. Error message indicates the remark is already empty.
+
+### Importing a CSV file
+
+1. Importing a valid CSV file
+
+   1. Prerequisites: Ensure `data/import-sample.csv` exists.
+
+   1. Test case: `import data/import-sample.csv`<br>
+      Expected: Students from the CSV file are added. A success message reports imported and skipped duplicate counts.
+
+1. Importing a file path that contains spaces
+
+   1. Prerequisites: Place a CSV file at `data/my contacts.csv`.
+
+   1. Test case: `import "data/my contacts.csv"`<br>
+      Expected: Import succeeds and displays the summary message.
+
+1. Importing duplicates
+
+   1. Prerequisites: Run `import data/import-sample.csv` once.
+
+   1. Test case: Run `import data/import-sample.csv` again.<br>
+      Expected: Existing students are skipped as duplicates and reflected in the summary.
+
+1. Importing from a non-existent file
+
+   1. Test case: `import data/does-not-exist.csv`<br>
+      Expected: No students are added. An error message indicates the file cannot be read.
+
+1. Importing a CSV with invalid data
+
+   1. Prerequisites: Create a CSV file with an invalid value (e.g., invalid email in one row).
+
+   1. Test case: `import data/invalid-data.csv`<br>
+      Expected: No students are added. An error message indicates the failing CSV line and reason.
 
 ### Saving data
 

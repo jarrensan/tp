@@ -475,6 +475,24 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `find n/`<br>
     Expected: No search is performed. Error message for invalid command format is shown.
 
+### Listing contacts
+
+1. Listing and sorting contacts in a specified order
+
+    1. Prerequisites: Ensure `Alice Yeoh` (Age 11), `Bernice Yu` (Age 10) and `Charlotte Oliveiro` (Age 7) are saved as contacts.
+
+    1. Test case: `list n/`<br>
+    Expected: Contacts are displayed in the following order (from top to bottom): `Alex Yeoh`, `Bernice Yu`, `Charlotte Oliveiro`.
+
+    1. Test case: `list a/`<br>
+    Expected: Contacts are displayed in the following order (from top to bottom): `Charlotte Oliveiro`, `Bernice Yu`, `Alex Yeoh`.
+
+    1. Test case: `list` with any number of trailing whitespaces<br>
+    Expected: Contacts are displayed with no sorting order applied.
+
+    1. Test case: `list a`, `list 123`, `list .`
+    Expected: View of contacts does not change. Error details are shown in the status message.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files

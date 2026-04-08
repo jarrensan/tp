@@ -121,8 +121,8 @@ Format: `list  [n/] | [a/] | [pn/] | [pc/] | [pe/]`
 * If a prefix is provided, the list is sorted by that field.
 * If no prefix is given, students are shown in the default order.
 * Only one prefix can be used at a time.
-* For all the fields except `a/`, sorting is done by alphabetical order.
-* For `a/`, sorting is done in ascending order.
+* Alphabetical sort is applied to `n/`, `pn/` and `pe/`.
+* Numeric sort in ascending order is applied to `a/` and `pc/`.
 
 ### Editing a person : `edit`
 
@@ -138,8 +138,8 @@ Format: `edit INDEX [n/NAME] [a/AGE] [ad/ADDRESS] [pn/PARENT NAME] [pc/PARENT PH
     specifying any tags after it.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+*  `edit 3 pn/91234567 pe/johndoe@example.com` Edits the phone number and email address of the 3rd person's parent to be `91234567` and `johndoe@example.com` respectively.
 
 ### Locating persons by name: `find`
 
@@ -157,15 +157,15 @@ Format: `find [NAME] [n/NAME] [a/AGE] [ad/ADDRESS] [t/TAG] [pn/PARENT_NAME] [pc/
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 * At least one of the optional fields must be provided.
 * If a prefix is provided, then it must not be empty (e.g., `find n/` will result in an error).
-* Use the list command to return to the full list after using find.
+* Use the `list` command to return to the full list after using find.
 
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
 * `find alex david n/john` returns `Alex Yeoh`, `David Li`, and `John Doe`
-* `find n/Jacob pn/Madison` returns students whose name contains `Jacob` or whose parent name contains `Madison`
+* `find n/Jacob pn/Madison` returns students whose name contains `Jacob` and students whose parent's name contains `Madison`
   ![result for 'find alex david'](images/findAlexDavidResult.png)
-* `find n/Alice pn/Tan a/12` returns all students named `Alice`, or students whose parent's name contains `Tan`, or students who are exactly 12 years old.
+* `find n/Alice pn/Tan a/12` returns all students named `Alice`, and students whose parent's name contains `Tan`, and students who are exactly 12 years old.
 
 ### Deleting a student : `delete`
 
@@ -175,7 +175,7 @@ Format: `delete INDEX [INDEX]... [START-END]...`
 
 * Deletes the students at the specified `INDEX` or in the specified range `START-END`.
 * The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, ...
 * Supports bulk deletion by providing multiple indices and/or ranges.
 * Ranges are inclusive (e.g. 3-5 deletes indices 3, 4, and 5).
 * Indices and ranges can be combined (e.g. 1 3 5-7).
@@ -192,7 +192,7 @@ Format: `remark INDEX r/[REMARK] d/[DIETARY REMARK] b/[BEHAVIOR REMARK] c/[CLASS
 
 * Adds a remark to a student at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, ...
 * Existing remarks will be overwritten by the new values.
 * You must provide at least one prefix (r/, d/, c/, or b/).
 * To delete a remark, use the prefix with no value (e.g. remark 1 r/).

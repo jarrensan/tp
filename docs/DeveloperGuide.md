@@ -569,6 +569,24 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `find n/`<br>
     Expected: No search is performed. Error message for invalid command format is shown.
 
+### Listing contacts
+
+1. Listing and sorting contacts in a specified order
+
+    1. Prerequisites: Ensure `Alice Yeoh` (Age 11), `Bernice Yu` (Age 10) and `Charlotte Oliveiro` (Age 7) are saved as contacts.
+
+    1. Test case: `list n/`<br>
+    Expected: Contacts are displayed in the following order (from top to bottom): `Alex Yeoh`, `Bernice Yu`, `Charlotte Oliveiro`.
+
+    1. Test case: `list a/`<br>
+    Expected: Contacts are displayed in the following order (from top to bottom): `Charlotte Oliveiro`, `Bernice Yu`, `Alex Yeoh`.
+
+    1. Test case: `list` with any number of trailing whitespaces<br>
+    Expected: Contacts are displayed with no sorting order applied.
+
+    1. Test case: `list a`, `list 123`, `list .`
+    Expected: View of contacts does not change. Error details are shown in the status message.
+
 ### Adding or removing remarks
 
 1. Adding a general remark
@@ -577,6 +595,15 @@ testers are expected to do more *exploratory* testing.
 
    1. Test case: `remark 1 r/Needs extra attention`<br>
       Expected: Person at index 1 is updated with the new remark. A success message is shown.
+
+   1. Test case: `remark 1`<br>
+      Expected: No changes are made. Error message for invalid command format is shown.
+
+   1. Test case: `remark 0 r/test`<br>
+      Expected: No changes are made. Error message for invalid command format is shown.
+
+   1. Test case: `remark 999 r/test` (where 999 is out of range)<br>
+      Expected: No changes are made. Error message indicates invalid person index.
 
 1. Adding multiple remark fields in one command
 
@@ -599,19 +626,6 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `remark 1 r/`<br>
       Expected: No changes are made. Error message indicates the remark is already empty.
 
-1. Invalid command format (no remark prefixes)
-
-   1. Test case: `remark 1`<br>
-      Expected: No changes are made. Error message for invalid command format is shown.
-
-1. Invalid index
-
-   1. Test case: `remark 0 r/test`<br>
-      Expected: No changes are made. Error message for invalid command format is shown.
-
-   1. Test case: `remark 999 r/test` (where 999 is out of range)<br>
-      Expected: No changes are made. Error message indicates invalid person index.
-
 ### Importing a CSV file
 
 1. Importing a valid CSV file
@@ -623,9 +637,9 @@ testers are expected to do more *exploratory* testing.
 
 1. Importing a file path that contains spaces
 
-   1. Prerequisites: Place a CSV file at `data/my-contacts.csv`.
+   1. Prerequisites: Place a CSV file at `data/my contacts.csv`.
 
-   1. Test case: `import "data/my-contacts.csv"`<br>
+   1. Test case: `import "data/my contacts.csv"`<br>
       Expected: Import succeeds and displays the summary message.
 
 1. Importing duplicates

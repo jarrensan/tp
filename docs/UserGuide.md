@@ -31,7 +31,7 @@ CareContacts is a desktop student management application designed specifically f
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe a/12 ad/John street, block 123, #01-01 pn/Jimmy Doe pc/98765421 pe/jimmy@example.com` : Adds a contact named `John Doe` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
@@ -164,7 +164,7 @@ Format: `find [NAME] [n/NAME] [a/AGE] [ad/ADDRESS] [t/TAG] [pn/PARENT_NAME] [pc/
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 * At least one of the optional fields must be provided.
 * If a prefix is provided, then it must not be empty (e.g., `find n/` will result in an error).
-* Use the `list` command to return to the full list after using find.
+* Use the `list` command without any prefixes to reset the display.
 
 Examples:
 * `find John` returns `john` and `John Doe`
@@ -186,6 +186,7 @@ Format: `delete INDEX [INDEX]... [START-END]...`
 * Supports bulk deletion by providing multiple indices and/or ranges.
 * Ranges are inclusive (e.g. 3-5 deletes indices 3, 4, and 5).
 * Indices and ranges can be combined (e.g. 1 3 5-7).
+* Deletion is permanent and cannot be undone via the app.
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book.
@@ -290,6 +291,7 @@ _Details coming soon ..._
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
+3. **Editing a tag** will remove all existing tags and only add the new tag. There is no convenient way to add tags to an existing contact other than to include the existing tags in the `edit` command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -306,3 +308,4 @@ Action     | Format, Examples
 **Remark** | `remark INDEX r/[REMARK] d/[DIETARY REMARK] b/[BEHAVIOR REMARK] c/[CLASS]` <br> e.g., `remark 3 c/4A d/Allergic to seafood`
 **Import** | `import FILE_PATH`<br> e.g., `import data/contacts.csv`
 **Clear**  | `clear`
+**Exit**   | `exit`

@@ -15,6 +15,10 @@
 
 This project is adapted from [AddressBook-Level3](https://se-education.org/addressbook-level3/).
 
+### AI Usage Declaration
+
+Every member of the team used VSCode Copilot for autocompletion during coding.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Setting up, getting started**

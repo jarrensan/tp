@@ -617,7 +617,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Prerequisites: List all students using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1<br>
+   1. Test case: `delete 1`<br>
       Expected: First student is deleted from the list. Details of the deleted student are shown in the status message. Timestamp in the status bar is updated.
 
    1. Test case: `delete 1 2 1 3`<br>

@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BEHAVIOR_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASS_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIETARY_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.List;

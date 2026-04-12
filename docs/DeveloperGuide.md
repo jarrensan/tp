@@ -754,4 +754,4 @@ testers are expected to do more *exploratory* testing.
       3. Introduce invalid JSON or values
       4. Save the `data/addressbook.json` file
       5. Relaunch the application
-      Expected: The application successfully launches, but does not display any entries. An error is 
+      Expected: The application successfully launches, but does not display any entries.

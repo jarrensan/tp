@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.nio.file.Paths;
+import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,5 +36,15 @@ public class ImportCommandParserTest {
     public void parse_emptyQuotedPath_failure() {
         assertParseFailure(parser, " \"\" ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ImportCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidPath_failure() {
+        String invalidPath = System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("win")
+                ? "bad<name>.csv"
+                : "bad\u0000name.csv";
+
+        assertParseFailure(parser, " " + invalidPath,
+                String.format(ImportCommandParser.MESSAGE_INVALID_FILE_PATH, invalidPath));
     }
 }

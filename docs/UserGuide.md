@@ -216,6 +216,8 @@ Examples:
 * `remark 1 r/enjoys sports d/allergic to shellfish c/1C b/very energetic`
 adds the following remarks to the student at index 1
 
+<a id="importing-students"></a>
+
 ### Importing students : `import`
 
 Imports students from a CSV file into the address book.
@@ -267,7 +269,7 @@ Use the `import` command to load students from a CSV file:
 
 * `import data/contacts.csv`
 
-Refer to [Importing students : `import`](#importing-students--import) for the required CSV format.
+Refer to [Importing students : `import`](#importing-students) for the required CSV format.
 
 ### Editing the data file
 

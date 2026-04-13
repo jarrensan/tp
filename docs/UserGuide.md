@@ -85,11 +85,9 @@ This help window is not a complete reference of all available commands.
 Some commands (e.g., edit, import, etc.) are not included.
 For the full list of features and commands, refer to the User Guide.
 
-Format: help
+Format: `help`
 
 ![help message](images/helpWindow.png)
-
-Format: `help`
 
 <div style="page-break-after: always;"></div>
 
@@ -120,9 +118,7 @@ A student will **not be added** if both of the following match exactly:
 - Age
 
 #### Potential Duplicates (Warning Only)
-The system will display a **warning** and show a list of similar names, but the student will still be added in the following cases:
-- Same name but **different ages**
-- Same age but names match **after normalization**
+The system will display a message **warning** the user of a potential duplicate and show a list of possible duplicates if the student names are the same **after normalization**.
 
 #### Name Normalization Rules
 Names are considered the same after normalization if:
@@ -132,7 +128,7 @@ Names are considered the same after normalization if:
 **Example:**
 - `John Doe` and `john   doe  ` are treated as the same name
 
-### Limitations
+#### Limitations
 This duplicate detection is limited and may miss some similar names.
 
 **Examples that will NOT trigger a warning:**
@@ -324,23 +320,6 @@ If your changes to the data file makes its format invalid, CareContacts will dis
 Furthermore, certain edits can cause the CareContacts to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
-### Note on duplicate names
-
-If a student whose name matches an existing name after normalization is added, the system will display a warning and show a list of similar names. However, the student will still be added.
-
-A name is considered a match after normalization if the name is the same after:
-
-* Differences in capitalization are ignored
-* Extra spaces are removed
-
-For example, `John Doe` and `john   doe  ` are treated as the same name.
-
-Limitations:
-
-This check is limited and may miss some similar names
-For example:
-* `Justine Ong` vs `Justin Ong` will not trigger a warning
-* `Annabelle` vs `Anna Belle` will not trigger a warning
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ

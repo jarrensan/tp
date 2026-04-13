@@ -196,10 +196,10 @@ Format: `find [NAME] [n/NAME] [a/AGE] [ad/ADDRESS] [t/TAG] [pn/PARENT_NAME] [pc/
 Examples:
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
+![result for 'find alex david'](images/findAlexDavidResult.png)
 * `find alex david n/john` returns `Alex Yeoh`, `David Li`, and `John Doe`
 * `find ad/Blk 30 Geylang` returns all contacts living at that specific block and street. The search treats the entire string following ad/ as a single location fragment.
 * `find n/Jacob pn/Madison` returns students whose name contains `Jacob` and students whose parent's name contains `Madison`
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
 * `find n/Alice pn/Tan a/12` returns all students named `Alice`, and students whose parent's name contains `Tan`, and students who are exactly 12 years old.
 
 <div style="page-break-after: always;"></div>

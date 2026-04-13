@@ -539,7 +539,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4.  Software should work without requiring an installer.
 5.  Should be able to hold up to 200 students without any noticeable decline in performance for typical usage.
 6.  Should be usable by a user who has never used the software before.
-7.  A user with above average typing speed for regular English text should be able to accomplish most of the tasks faster using commands than using the mouse.
+7.  A user with above-average typing speed for regular English text should be able to accomplish most core tasks (e.g., adding and deleting contacts) faster using commands than using an equivalent mouse-based interface, compared against a similar GUI-based application.
 8.  Should be able to work with or without internet access.
 9.  Should be backward compatible with data produced by earlier versions of the software.
 
@@ -813,3 +813,5 @@ Currently, the remark field accepts an unlimited number of characters, and long 
 This can clutter the interface and make it difficult for users to quickly scan and navigate through contacts.
 We plan to improve the display of remarks by constraining them within a fixed-size area and introducing a scrollbar for longer content.
 Additionally, long remarks may be truncated in the list view with an ellipsis (...), while still allowing users to access the full content when needed.
+
+### 4. 

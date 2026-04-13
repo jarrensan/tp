@@ -9,6 +9,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENT_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -48,6 +50,12 @@ public class AddCommandParser implements Parser<AddCommand> {
                 PREFIX_NAME, PREFIX_AGE, PREFIX_ADDRESS,
                 PREFIX_PARENT_NAME, PREFIX_PARENT_PHONE, PREFIX_PARENT_EMAIL, PREFIX_TAG);
 
+        // Detect unsupported/unknown prefixes early and give clear error
+        checkForUnsupportedPrefixes(args, PREFIX_NAME.toString(), PREFIX_AGE.toString(),
+                PREFIX_ADDRESS.toString(), PREFIX_PARENT_NAME.toString(),
+                PREFIX_PARENT_PHONE.toString(), PREFIX_PARENT_EMAIL.toString(),
+                PREFIX_TAG.toString());
+
         // Ensure duplicate check includes parent fields too
         argMultimap.verifyNoDuplicatePrefixesFor(
                 PREFIX_NAME, PREFIX_AGE, PREFIX_ADDRESS,
@@ -58,7 +66,8 @@ public class AddCommandParser implements Parser<AddCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             logger.warning("Missing required prefixes or non-empty preamble in AddCommand. "
                     + "User input: " + args);
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -88,4 +97,29 @@ public class AddCommandParser implements Parser<AddCommand> {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
+    /**
+     * Scans the raw arguments for any prefix-like tokens (e.g. "d/") that are not
+     * in the
+     * provided allowedPrefixes. Throws a ParseException with a clear message if any
+     * unsupported prefix is found.
+     */
+    private static void checkForUnsupportedPrefixes(String args, String... allowedPrefixes) throws ParseException {
+        if (args == null || args.isBlank()) {
+            return;
+        }
+        Set<String> allowed = new HashSet<>(Arrays.asList(allowedPrefixes));
+        String[] tokens = args.trim().split("\\s+");
+        for (String token : tokens) {
+            int slashIdx = token.indexOf('/');
+            if (slashIdx > 0) {
+                String candidatePrefix = token.substring(0, slashIdx + 1);
+                if (!allowed.contains(candidatePrefix)) {
+                    // Clear, actionable error: show the unsupported prefix and usage
+                    throw new ParseException("Unsupported prefix: " + candidatePrefix + "\n"
+                            + String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            AddCommand.MESSAGE_USAGE));
+                }
+            }
+        }
+    }
 }

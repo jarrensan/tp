@@ -755,3 +755,36 @@ testers are expected to do more *exploratory* testing.
       4. Save the `data/addressbook.json` file
       5. Relaunch the application
       Expected: The application successfully launches, but does not display any entries.
+
+
+## Appendix: Effort
+
+Difficulty: Medium-High | Effort: Medium-High
+Expanded Data Model
+AB3's person constructor takes a fixed set of required fields. CareContacts needed to track considerably more information per student — including parent contact details and four optional remark fields (general, dietary, behavioural, and class). A key design decision was deciding which fields should be mandatory versus optional. We settled on keeping inherent student attributes (name, age, address, parent details) as required, while remark fields were made optional and handled through a separate remark command. This avoided the add command becoming unwieldy, but required deliberate decisions about how to structure the two commands and where responsibility for each field should sit.
+Remark Command
+Rather than cramming all optional fields into add, we introduced a dedicated remark command. The main challenge was designing it to handle four independent fields that can each be set or cleared in any combination in a single command, while ensuring existing values are not unintentionally overwritten.
+Find Command
+find was one of the more challenging commands to implement due to the volume of design decisions involved. We had to decide between OR and AND logic for multi-prefix searches, which fields should use partial matching versus exact matching (age uses exact match to avoid nonsensical results), and how to handle multiple keywords within a single prefix. Input validation also had to be robust enough to catch empty prefixes and invalid combinations.
+Duplicate Detection
+We debated what should constitute a duplicate. One option was including parent name in the check, but we ruled this out because the same student could be registered by two different parents, which would cause a genuine duplicate to slip through. We settled on student name plus age as the identity check — normalising for capitalisation and extra spaces. In a small school setting, two students sharing both the same name and age is unlikely, and in that edge case users can simply distinguish them with a note in the name field.
+Import Command
+The import command was built from scratch with no AB3 equivalent. The main challenge beyond basic CSV parsing was handling duplicates and near-matches — applying the same normalised name matching used in add to flag or skip students who already exist in the system.
+Testing
+Adding new fields and commands required expanding the sample test data significantly, which was time-consuming. Optional fields in particular needed careful test coverage to ensure no unintended overwrites or null handling issues.
+Summary
+While AB3 provided a foundation, the number of structural changes across the model, parser, storage, and command layers meant that almost every part of the codebase was touched. 
+
+## Appendix: Planned Enhancements
+
+Team Size: 4
+
+### 1. Allow common real-world characters in names
+Currently, the application disallows several commonly used characters in real-world names, 
+including `/`, `-`, `'`, `.`, and non-English characters (e.g., accents). 
+This prevents users from entering valid names such as `Ahmad s/o Rahman`, `Jean-Pierre`, `O'Connor`, 
+`J.R.R. Tolkien`, and `Lê Dũng Tráng`. 
+We plan to update the name validation and parsing logic to support these characters 
+while ensuring they do not conflict with command parsing.
+
+### 2. Error message when the data file is corrupted 

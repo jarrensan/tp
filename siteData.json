@@ -70,7 +70,15 @@
         "listing-students": "Listing students",
         "adding-or-removing-remarks": "Adding or removing remarks",
         "importing-a-csv-file": "Importing a CSV file",
-        "saving-data": "Saving data"
+        "saving-data": "Saving data",
+        "appendix-effort": "Appendix: Effort",
+        "appendix-planned-enhancements": "Appendix: Planned Enhancements",
+        "1-allow-common-real-world-characters-in-names": "1. Allow common real-world characters in names",
+        "2-provide-more-specific-error-message-for-invalid-delete-index": "2. Provide more specific error message for invalid delete index",
+        "3-improve-remark-display-for-better-readability": "3. Improve remark display for better readability",
+        "4-relaxing-input-validation-for-phone-numbers": "4. Relaxing Input Validation for Phone Numbers",
+        "5-enhanced-tagging-flexibility": "5. Enhanced Tagging Flexibility",
+        "6-support-exact-phrase-matching-in-find-command": "6. Support exact-phrase matching in find command:"
       },
       "headingKeywords": {}
     },
@@ -119,7 +127,7 @@
         "features": "Features",
         "viewing-help-help": "Viewing help : help",
         "adding-a-person-add": "Adding a person: add",
-        "duplicate-name-detection": "Duplicate name detection",
+        "duplicate-name-detection": "Duplicate Name Detection",
         "listing-all-persons-list": "Listing all persons : list",
         "editing-a-person-edit": "Editing a person : edit",
         "locating-persons-by-name-find": "Locating persons by name: find",
@@ -131,7 +139,6 @@
         "saving-the-data": "Saving the data",
         "importing-the-data": "Importing the data",
         "editing-the-data-file": "Editing the data file",
-        "archiving-data-files-coming-in-v2-0": "Archiving data files [coming in v2.0]",
         "faq": "FAQ",
         "known-issues": "Known issues",
         "command-summary": "Command summary"
@@ -142,7 +149,7 @@
       "src": "index.md",
       "title": "",
       "headings": {
-        "addressbook-level-3": "AddressBook Level-3"
+        "carecontacts": "CareContacts"
       },
       "headingKeywords": {}
     },

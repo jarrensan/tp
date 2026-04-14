@@ -1,7 +1,7 @@
 ---
-  layout: default.md
-  title: "User Guide"
-  pageNav: 3
+layout: default.md
+title: "User Guide"
+pageNav: 3
 ---
 
 # CareContacts User Guide
@@ -71,6 +71,7 @@ Optimized for a Command Line Interface (CLI), CareContacts is ideal for fast typ
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+
 </box>
 
 <div style="page-break-after: always;"></div>
@@ -95,7 +96,7 @@ Format: `help`
 
 Adds a student to the address book.
 
-Format: `add n/STUDENT_NAME a/AGE ad/ADDRESS pn/PARENT_NAME pc/PARENT_PHONE pe/PARENT_EMAIL [t/TAG]...`
+Format: `add n/STUDENT_NAME a/AGE ad/ADDRESS pn/PARENT_NAME pc/PARENT_PHONE pe/PARENT_EMAIL [t/TAG] …​`
 
 <box type="tip" seamless>
 
@@ -106,7 +107,7 @@ Examples:
 * `add n/James Cook a/12 ad/Blk 132 Edgedale Plains, #15-96 pn/Madison Cook pc/87654321 pe/maddie@gmail.com`
 * `add n/Mary Chew a/7 ad/Blk 123 Bukit Merah Lane, #12-23 pn/Augusta Chew pc/12345678 pe/augusta@email.com t/allergies t/basketball`
 
-<div markdown="block" class="alert alert-info">
+<box type="info" seamless>
 
 ### Duplicate Name Detection
 
@@ -135,7 +136,7 @@ Examples that will **NOT** trigger a warning:
 - `Justine Ong` vs `Justin Ong`
 - `Annabelle` vs `Anna Belle`
 
-</div>
+</box>
 
 <div style="page-break-after: always;"></div>
 
@@ -157,7 +158,7 @@ Format: `list  [n/] | [a/] | [pn/] | [pc/] | [pe/]`
 
 Edits an existing person in the address book.
 
-Format: `edit INDEX [n/NAME] [a/AGE] [ad/ADDRESS] [pn/PARENT NAME] [pc/PARENT PHONE] [pe/PARENT EMAIL] [t/TAG]...`
+Format: `edit INDEX [n/NAME] [a/AGE] [ad/ADDRESS] [pn/PARENT NAME] [pc/PARENT PHONE] [pe/PARENT EMAIL] [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -208,7 +209,7 @@ Examples:
 
 Deletes the specified student from the address book.
 
-Format: `delete INDEX [INDEX]... [START-END]...`
+Format: `delete INDEX [INDEX]…​ [START-END]…​`
 
 * Deletes the students at the specified `INDEX` or in the specified range `START-END`.
 * The index refers to the index number shown in the displayed person list.
@@ -319,6 +320,7 @@ CareContacts data are saved automatically as a JSON file `[JAR file location]/da
 **Caution:**
 If your changes to the data file makes its format invalid, CareContacts will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the CareContacts to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+
 </box>
 
 --------------------------------------------------------------------------------------------------------------------

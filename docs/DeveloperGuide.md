@@ -802,10 +802,11 @@ while ensuring they do not conflict with command parsing.
 
 ### 2. Provide more specific error message for invalid delete index
 
-Currently, entering an invalid index for the delete command (e.g., delete -1 or delete 0) results in a generic "Invalid Command Format" message.
+Currently, entering an invalid index for index-based commands (e.g., delete -1 or delete 0) results in a generic "Invalid Command Format" message.
 This does not clearly inform the user what went wrong or how to correct their input.
 We plan to improve the error handling by providing a more specific message, such as:
-"Please enter a valid index number greater than 0 and within the range of the displayed contact list."
+* Non-positive indices: "Index must be a positive integer (1, 2, 3...)."
+* Out-of-bounds indices: "The index provided is larger than the number of contacts currently displayed."
 
 ### 3. Improve remark display for better readability
 
